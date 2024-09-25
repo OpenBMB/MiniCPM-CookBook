@@ -17,6 +17,18 @@
 ## 关于MiniCPM(✅)
 面壁「小钢炮」MiniCPM 端侧大模型系列，是由面壁智能（ModelBest）联合OpenBMB开源社区和清华NLP实验室开源的轻量高性能端侧大模型。包含基座模型MiniCPM和多模态模型MiniCPM-V双旗舰，凭借以小博大、高效低成本的特性享誉全球。目前已经在性能上开启「端侧ChatGPT时刻」；多模态方向达到全面对标GPT-4V级水平，实现实时视频、多图联合理解首次上端。目前，正在落地于手机、电脑、汽车、可穿戴设备、VR等智能终端场景中。更多关于面壁小钢炮MiniCPM系列的详细信息，请访[OpenBMB](https://github.com/OpenBMB)页面。
 
+## 应用精选(✅)
+### 语言模型
+- [4G显存玩转rag_langchain](https://modelbest.feishu.cn/wiki/G5NlwYGGAiJWGmkCc4NcQ3sAnms?from=from_copylink) 
+- [RLHF可控文本生成](https://modelbest.feishu.cn/wiki/ZEzGwgDgSi2Nk1kjAfFcrZn4nKd?from=from_copylink)
+- [function_call](https://modelbest.feishu.cn/wiki/ARJtwko3gisbw5kdPiDcDIOvnGg?from=from_copylink)
+- [AIPC-windows搭建Agent](https://modelbest.feishu.cn/wiki/N0tswVXEqipuSUkWc96comFXnnd?from=from_copylink)
+### 多模态模型
+- [跨模态高清检索](https://modelbest.feishu.cn/wiki/NdEjwo0hxilCIikN6RycOKp0nYf?from=from_copylink)
+- [文字识别与定位](https://modelbest.feishu.cn/wiki/HLRiwNgKEic6cckGyGucFvxQnJw?from=from_copylink)
+- [Agent入门](https://modelbest.feishu.cn/wiki/HKQdwbUUgiL0HNkSetjctaMcnrw?from=from_copylink)
+- [长链条Agent如何构造](https://modelbest.feishu.cn/wiki/IgF0wRGJYizj4LkMyZvc7e2Inoe?from=from_copylink)
+- [多模态文档RAG](https://modelbest.feishu.cn/wiki/NwhIwkJZYiHOPSkzwPUcq6hanif?from=from_copylink)
 ## 技术报告(✅)
 - [MiniCPM 语言模型技术报告_正式](https://arxiv.org/abs/2404.06395)
 - [MiniCPM-V 多模态模型技术报告_正式](https://arxiv.org/abs/2408.01800)
@@ -111,18 +123,7 @@
 ## 集成(✅)
 - [langchain](./md/integrate/langchain.md)
 - [openai_api](./md/integrate/openai_api.md)
-## 应用(✅)
-### 语言模型
-- [4G显存玩转rag_langchain](https://modelbest.feishu.cn/wiki/G5NlwYGGAiJWGmkCc4NcQ3sAnms?from=from_copylink) 
-- [RLHF可控文本生成](https://modelbest.feishu.cn/wiki/ZEzGwgDgSi2Nk1kjAfFcrZn4nKd?from=from_copylink)
-- [function_call](https://modelbest.feishu.cn/wiki/ARJtwko3gisbw5kdPiDcDIOvnGg?from=from_copylink)
-- [AIPC-windows搭建Agent](https://modelbest.feishu.cn/wiki/N0tswVXEqipuSUkWc96comFXnnd?from=from_copylink)
-### 多模态模型
-- [跨模态高清检索](https://modelbest.feishu.cn/wiki/NdEjwo0hxilCIikN6RycOKp0nYf?from=from_copylink)
-- [文字识别与定位](https://modelbest.feishu.cn/wiki/HLRiwNgKEic6cckGyGucFvxQnJw?from=from_copylink)
-- [Agent入门](https://modelbest.feishu.cn/wiki/HKQdwbUUgiL0HNkSetjctaMcnrw?from=from_copylink)
-- [长链条Agent如何构造](https://modelbest.feishu.cn/wiki/IgF0wRGJYizj4LkMyZvc7e2Inoe?from=from_copylink)
-- [多模态文档RAG](https://modelbest.feishu.cn/wiki/NwhIwkJZYiHOPSkzwPUcq6hanif?from=from_copylink)
+
 
 ## 开源社区合作(✅)
 - [xtuner](https://github.com/InternLM/xtuner): [MiniCPM高效率微调的不二选择](https://modelbest.feishu.cn/wiki/AIU3wbREcirOm9kkvd7cxujFnMb#AMdXdzz8qoadZhxU4EucELWznzd)

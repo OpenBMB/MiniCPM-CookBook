@@ -17,6 +17,20 @@ Join our <a href="https://discord.gg/3cGQn9b3YM" target="_blank">Discord</a> and
 ## About MiniCPM (✅)
 The MiniCPM edge-side series is jointly open-sourced by ModelBest and OpenBMB, in collaboration with the Tsinghua NLP Lab. It comprises globally lightweight high-performance AI models，including the MiniCPM foundation model and the MiniCPM-V multimodal model. We have now ushered in the "Edge-Side ChatGPT Era" in terms of performance; in the multimodal direction, we have made GPT-4V level MLLMsfor Single Image, Multi Image and Video on Your Phone. It is currently being deployed in end devices such as smartphones, computers, cars, wearable devices, VR, and more. For more detailed information about the MiniCPM series, please visit the [OpenBMB](https://github.com/OpenBMB) page.
 
+## Applications (✅)
+### Language Models
+- [Playing with RAG LangChain on 4GB VRAM](https://modelbest.feishu.cn/wiki/G5NlwYGGAiJWGmkCc4NcQ3sAnms?from=from_copylink)
+- [Controllable Text Generation with RLHF](https://modelbest.feishu.cn/wiki/ZEzGwgDgSi2Nk1kjAfFcrZn4nKd?from=from_copylink)
+- [Function Call](https://modelbest.feishu.cn/wiki/ARJtwko3gisbw5kdPiDcDIOvnGg?from=from_copylink)
+- [Building an Agent on AIPC-Windows](https://modelbest.feishu.cn/wiki/N0tswVXEqipuSUkWc96comFXnnd?from=from_copylink)
+
+### Multimodal Models
+- [Cross-Modality High-Definition Retrieval](https://modelbest.feishu.cn/wiki/NdEjwo0hxilCIikN6RycOKp0nYf?from=from_copylink)
+- [Text Recognition and Localization](https://modelbest.feishu.cn/wiki/HLRiwNgKEic6cckGyGucFvxQnJw?from=from_copylink)
+- [Getting Started with Agents](https://modelbest.feishu.cn/wiki/HKQdwbUUgiL0HNkSetjctaMcnrw?from=from_copylink)
+- [Constructing Long-Chain Agents](https://modelbest.feishu.cn/wiki/IgF0wRGJYizj4LkMyZvc7e2Inoe?from=from_copylink)
+- [Multimodal Document RAG](https://modelbest.feishu.cn/wiki/NwhIwkJZYiHOPSkzwPUcq6hanif?from=from_copylink)
+
 ## Technical Reports (✅)
 - [MiniCPM Language Model Technical Report](https://arxiv.org/abs/2404.06395)
 - [MiniCPM-V Multimodal Model Technical Report](https://arxiv.org/abs/2408.01800)
@@ -120,20 +134,6 @@ The MiniCPM edge-side series is jointly open-sourced by ModelBest and OpenBMB, i
 ## Integration (✅)
 - [LangChain](./md/md_en/integrate/langchain.md)
 - [OpenAI API](./md/md_en/integrate/openai_api.md)
-
-## Applications (✅)
-### Language Models
-- [Playing with RAG LangChain on 4GB VRAM](https://modelbest.feishu.cn/wiki/G5NlwYGGAiJWGmkCc4NcQ3sAnms?from=from_copylink)
-- [Controllable Text Generation with RLHF](https://modelbest.feishu.cn/wiki/ZEzGwgDgSi2Nk1kjAfFcrZn4nKd?from=from_copylink)
-- [Function Call](https://modelbest.feishu.cn/wiki/ARJtwko3gisbw5kdPiDcDIOvnGg?from=from_copylink)
-- [Building an Agent on AIPC-Windows](https://modelbest.feishu.cn/wiki/N0tswVXEqipuSUkWc96comFXnnd?from=from_copylink)
-
-### Multimodal Models
-- [Cross-Modality High-Definition Retrieval](https://modelbest.feishu.cn/wiki/NdEjwo0hxilCIikN6RycOKp0nYf?from=from_copylink)
-- [Text Recognition and Localization](https://modelbest.feishu.cn/wiki/HLRiwNgKEic6cckGyGucFvxQnJw?from=from_copylink)
-- [Getting Started with Agents](https://modelbest.feishu.cn/wiki/HKQdwbUUgiL0HNkSetjctaMcnrw?from=from_copylink)
-- [Constructing Long-Chain Agents](https://modelbest.feishu.cn/wiki/IgF0wRGJYizj4LkMyZvc7e2Inoe?from=from_copylink)
-- [Multimodal Document RAG](https://modelbest.feishu.cn/wiki/NwhIwkJZYiHOPSkzwPUcq6hanif?from=from_copylink)
 
 ## Open Source Community Collaboration (✅)
 - [xtuner](https://github.com/InternLM/xtuner): [The Optimal Choice for Efficient Fine-Tuning of MiniCPM](https://modelbest.feishu.cn/wiki/AIU3wbREcirOm9kkvd7cxujFnMb#AMdXdzz8qoadZhxU4EucELWznzd)
