@@ -1,0 +1,30 @@
+[
+    {
+        "id": "712",
+        "image": "/root/ld/ld_dataset/2022_12_SCUT-HCCDoc_Val/Chinese/img/007650.jpg",
+        "conversations": [
+            {
+                "content": "<image>\n我想知道图中文字的内容以及它们各自的位置。",
+                "role": "user"
+            },
+            {
+                "content": "<ref>會選擇原諒<box>1000</box><box>1000</box><box>1000</box><box>1000</box></ref><ref>是希望對方<box>1000</box><box>1000</box><box>1000</box><box>1000</box></ref><ref>仍能留在你的些電影教我的事ａｉｌｌｏｖｅｊｅｓｕｓ<box>1000</box><box>1000</box><box>1000</box><box>1000</box></ref><ref>一勇者無<box>1000</box><box>1000</box><box>1006</box><box>1000</box></ref>",
+                "role": "assistant"
+            }
+        ]
+    },
+    {
+        "id": "717",
+        "image": "/root/ld/ld_dataset/2022_12_SCUT-HCCDoc_Val/Chinese/img/005612.jpg",
+        "conversations": [
+            {
+                "content": "<image>\n请帮我识别图片里的文字内容，并标出它们的确切位置。",
+                "role": "user"
+            },
+            {
+                "content": "<ref>醉过才知酒浓<box>1000</box><box>1000</box><box>1000</box><box>1000</box></ref><ref>爱过才知情重．你不能做我的正如我不能做你的梦<box>1000</box><box>1000</box><box>1000</box><box>1000</box></ref><ref>十月<box>1000</box><box>1000</box><box>1000</box><box>1000</box></ref>",
+                "role": "assistant"
+            }
+        ]
+    }
+]
