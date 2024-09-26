@@ -59,11 +59,9 @@
 - [MiniCPM 2.4B_ollama_cuda_cpu_mac](./md/inference/minicpm2.0/ollama.md)
 - [MiniCPM 2.4B_llamacpp_cuda_cpu](./md/inference/minicpm2.0/llama.cpp_pc.md)
 - [MiniCPM 2.4B_llamacpp_android](./md/inference/minicpm2.0/llama.cpp_android.md)
-- FAQ
 #### MiniCPM-S 1.2B
 - [MiniCPM-S 1.2B_powerinfer_cuda](./md/inference/minicpm2.0/powerinfer_pc.md)
 - [MiniCPM-S 1.2B_powerinfer_android](./md/inference/minicpm2.0/powerinfer_android.md)
-- FAQ
 #### MiniCPM 3.0
 - [MiniCPM 3.0_vllm_cuda](./md/inference/minicpm3.0/vllm.md)
 - [MiniCPM 3.0_transformers_cuda_cpu](./md/inference/minicpm3.0/transformers.md)
@@ -83,7 +81,6 @@
 - [MiniCPM-V 2.6_llamacpp_cuda_cpu](./md/inference/minicpmv2.6/llamacpp.md)
 - [MiniCPM-V 2.6_transformers_cuda](./md/inference/minicpmv2.6/transformers_mult_gpu.md)
 - [MiniCPM-V 2.6_swift_cuda](https://github.com/modelscope/ms-swift/issues/1613)
-- FAQ
 ## 微调(✅)
 #### MiniCPM 3.0
 - [MiniCPM3_llamafactory_sft_RLHF_cuda](./md/finetune/minicpm3.0/llama_factory.md)
@@ -91,8 +88,6 @@
 - [MiniCPM2.0_官方代码_sft_cuda](./md/finetune/minicpm2.0/sft.md)
 - [MiniCPM2.0_mlx_sft_lora_mac](./md/finetune/minicpm2.0/mlx_sft.md)
 - [MiniCPM2.0_llamafactory_RLHF_cuda](./md/finetune/minicpm2.0/llama_factory.md)
-- FAQ
-
 #### MiniCPM-Llama3-V 2.5
 - [MiniCPM-Llama3-V 2.5_官方代码_cuda](./md/finetune/minicpmv2.5/sft.md)
 - [MiniCPM-Llama3-V-2_5_swift_cuda](./md/finetune/minicpmv2.5/swift.md)
@@ -101,7 +96,6 @@
 - [MiniCPM-V 2.6_官方代码_sft_cuda](./md/finetune/minicpmv2.6/sft.md)
 - [MiniCPM-V 2.6_swift_sft_cuda](https://github.com/modelscope/ms-swift/issues/1613)
 - [混合模态训练](https://modelbest.feishu.cn/wiki/As5Ow99z3i4hrCkooRIcz79Zn2f?from=from_copylink) 
-- FAQ
 ## 模型量化(✅)
 #### MiniCPM 2.4B
 - [MiniCPM 2.4B_awq量化](./md/quantize/minicpm2.0/awq.md)
