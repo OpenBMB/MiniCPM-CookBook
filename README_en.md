@@ -63,11 +63,9 @@ The MiniCPM edge-side series is jointly open-sourced by ModelBest and OpenBMB, i
 - [MiniCPM 2.4B_ollama_cuda_cpu_mac](./md/md_en/inference/minicpm2.0/ollama.md)
 - [MiniCPM 2.4B_llamacpp_cuda_cpu](./md/md_en/inference/minicpm2.0/llama.cpp_pc.md)
 - [MiniCPM 2.4B_llamacpp_android](./md/md_en/inference/minicpm2.0/llama.cpp_android.md)
-- FAQ
 #### MiniCPM-S 1.2B
 - [MiniCPM-S 1.2B_powerinfer_cuda](./md/md_en/inference/minicpm2.0/powerinfer_pc.md)
 - [MiniCPM-S 1.2B_powerinfer_android](./md/md_en/inference/minicpm2.0/powerinfer_android.md)
-- FAQ
 #### MiniCPM 3.0
 - [MiniCPM 3.0_vllm_cuda](./md/md_en/inference/minicpm3.0/vllm.md)
 - [MiniCPM 3.0_transformers_cuda_cpu](./md/md_en/inference/minicpm3.0/transformers.md)
@@ -87,8 +85,6 @@ The MiniCPM edge-side series is jointly open-sourced by ModelBest and OpenBMB, i
 - [MiniCPM-V 2.6_llamacpp_cuda_cpu](./md/md_en/inference/minicpmv2.6/llamacpp.md)
 - [MiniCPM-V 2.6_transformers_cuda](./md/md_en/inference/minicpmv2.6/transformers_mult_gpu.md)
 - [MiniCPM-V 2.6_swift_cuda](https://github.com/modelscope/ms-swift/issues/1613)
-- FAQ
-
 ## Fine-Tuning (✅)
 #### MiniCPM 3.0
 - [MiniCPM3_llamafactory_sft_RLHF_cuda](./md/md_en/finetune/minicpm3.0/llama_factory.md)
@@ -96,8 +92,6 @@ The MiniCPM edge-side series is jointly open-sourced by ModelBest and OpenBMB, i
 - [MiniCPM2.0_official_code_sft_cuda](./md/md_en/finetune/minicpm2.0/sft.md)
 - [MiniCPM2.0_mlx_sft_lora_mac](./md/md_en/finetune/minicpm2.0/mlx_sft.md)
 - [MiniCPM2.0_llamafactory_RLHF_cuda](./md/md_en/finetune/minicpm2.0/llama_factory.md)
-- FAQ
-
 #### MiniCPM-Llama3-V 2.5
 - [MiniCPM-Llama3-V 2.5 Official Code CUDA](./md/md_en/finetune/minicpmv2.5/sft.md)
 - [MiniCPM-Llama3-V-2_5 Swift CUDA](./md/md_en/finetune/minicpmv2.5/swift.md)
@@ -107,34 +101,27 @@ The MiniCPM edge-side series is jointly open-sourced by ModelBest and OpenBMB, i
 - [MiniCPM-V 2.6 Official Code SFT CUDA](./md/md_en/finetune/minicpmv2.6/sft.md)
 - [MiniCPM-V 2.6 Swift SFT CUDA](https://github.com/modelscope/ms-swift/issues/1613)
 - [Hybrid Modality Training](https://modelbest.feishu.cn/wiki/As5Ow99z3i4hrCkooRIcz79Zn2f?from=from_copylink)
-- FAQ
-
 ## Model Quantization (✅)
 #### MiniCPM 2.4B
 - [MiniCPM 2.4B AWQ Quantization](./md/md_en/quantize/minicpm2.0/awq.md)
 - [MiniCPM 2.4B GGUF Quantization](./md/md_en/inference/minicpm2.0/llama.cpp_pc.md)
 - [MiniCPM 2.4B GPTQ Quantization](./md/md_en/quantize/minicpm2.0/gptq.md)
 - [MiniCPM 2.4B BNB Quantization](./md/md_en/quantize/minicpm2.0/bnb.md)
-
 #### MiniCPM 3.0
 - [MiniCPM 3.0 AWQ Quantization](./md/md_en/quantize/minicpm3.0/awq.md)
 - [MiniCPM 3.0 GGUF Quantization](./md/md_en/inference/minicpm3.0/llamcpp.md)
 - [MiniCPM 3.0 GPTQ Quantization](./md/md_en/quantize/minicpm3.0/gptq.md)
 - [MiniCPM 3.0 BNB Quantization](./md/md_en/quantize/minicpm3.0/bnb.md)
-
 #### MiniCPM-Llama3-V 2.5
 - [MiniCPM-Llama3-V 2.5 BNB Quantization](./md/md_en/md_en/quantize/minicpmv2.5/bnb.md)
 - [MiniCPM-Llama3-V 2.5 GGUF Quantization](./md/md_en/md_en/inference/minicpmv2.5/llamacpp_pc.md)
-
 #### MiniCPM-V 2.6
 - [MiniCPM-V 2.6 BNB Quantization](./md/md_en/quantize/minicpmv2.6/bnb.md)
 - [MiniCPM-V 2.6 AWQ Quantization](./md/md_en/quantize/minicpmv2.6/awq.md)
 - [MiniCPM-V 2.6 GGUF Quantization](./md/md_en/inference/minicpmv2.6/llamacpp.md)
-
 ## Integration (✅)
 - [LangChain](./md/md_en/integrate/langchain.md)
 - [OpenAI API](./md/md_en/integrate/openai_api.md)
-
 ## Open Source Community Collaboration (✅)
 - [xtuner](https://github.com/InternLM/xtuner): [The Optimal Choice for Efficient Fine-Tuning of MiniCPM](https://modelbest.feishu.cn/wiki/AIU3wbREcirOm9kkvd7cxujFnMb#AMdXdzz8qoadZhxU4EucELWznzd)
 - [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory.git): [One-Click Fine-Tuning Solution for MiniCPM](https://modelbest.feishu.cn/wiki/AIU3wbREcirOm9kkvd7cxujFnMb#BAWrdSjXuoFvX4xuIuzc8Amln5E)
