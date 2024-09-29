@@ -126,6 +126,6 @@ The MiniCPM edge-side series is jointly open-sourced by ModelBest and OpenBMB, i
 - [xtuner](https://github.com/InternLM/xtuner): [The Optimal Choice for Efficient Fine-Tuning of MiniCPM](https://modelbest.feishu.cn/wiki/AIU3wbREcirOm9kkvd7cxujFnMb#AMdXdzz8qoadZhxU4EucELWznzd)
 - [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory.git): [One-Click Fine-Tuning Solution for MiniCPM](https://modelbest.feishu.cn/wiki/AIU3wbREcirOm9kkvd7cxujFnMb#BAWrdSjXuoFvX4xuIuzc8Amln5E)
 - [ChatLLM Framework](https://github.com/foldl/chatllm.cpp): [Running MiniCPM on CPU](https://huggingface.co/openbmb/MiniCPM-2B-dpo-bf16/discussions/2#65c59c4f27b8c11e43fc8796)
-
+- [datawhale_Rapidly deploy open source large models based on Linux environment](https://github.com/datawhalechina/self-llm)
 ## Community Contributions
 In the spirit of open source, we encourage contributions to this repository, including but not limited to adding new MiniCPM tutorials, sharing user experiences, providing ecosystem compatibility, and model applications. We look forward to contributions from developers to enhance our open-source repository.
