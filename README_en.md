@@ -22,6 +22,7 @@ The MiniCPM edge-side series is jointly open-sourced by ModelBest and OpenBMB, i
 - [Playing with RAG LangChain on 4GB VRAM](https://modelbest.feishu.cn/wiki/G5NlwYGGAiJWGmkCc4NcQ3sAnms?from=from_copylink)
 - [Controllable Text Generation with RLHF](https://modelbest.feishu.cn/wiki/ZEzGwgDgSi2Nk1kjAfFcrZn4nKd?from=from_copylink)
 - [Function Call](https://modelbest.feishu.cn/wiki/ARJtwko3gisbw5kdPiDcDIOvnGg?from=from_copylink)
+- [Build Your Agent Data](https://modelbest.feishu.cn/wiki/MB7HwpHEWiu0pakafkBcrfX2nNe?from=from_copylink)
 - [Building an Agent on AIPC-Windows](https://modelbest.feishu.cn/wiki/N0tswVXEqipuSUkWc96comFXnnd?from=from_copylink)
 
 ### Multimodal Models
