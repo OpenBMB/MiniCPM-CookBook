@@ -84,6 +84,7 @@
 - [MiniCPM-V 2.6_swift_cuda](https://github.com/modelscope/ms-swift/issues/1613)
 ## 微调(✅)
 #### MiniCPM 3.0
+- [MiniCPM3_官方代码_sft_cuda](./md/finetune/minicpm3.0/sft.md)
 - [MiniCPM3_llamafactory_sft_RLHF_cuda](./md/finetune/minicpm3.0/llama_factory.md)
 #### MiniCPM 2.4B
 - [MiniCPM2.0_官方代码_sft_cuda](./md/finetune/minicpm2.0/sft.md)
