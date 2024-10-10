@@ -88,6 +88,7 @@ The MiniCPM edge-side series is jointly open-sourced by ModelBest and OpenBMB, i
 - [MiniCPM-V 2.6_swift_cuda](https://github.com/modelscope/ms-swift/issues/1613)
 ## Fine-Tuning (✅)
 #### MiniCPM 3.0
+- [MiniCPM2.0_official_code_sft_cuda](./md/md_en/finetune/minicpm3.0/sft.md)
 - [MiniCPM3_llamafactory_sft_RLHF_cuda](./md/md_en/finetune/minicpm3.0/llama_factory.md)
 #### MiniCPM 2.4B
 - [MiniCPM2.0_official_code_sft_cuda](./md/md_en/finetune/minicpm2.0/sft.md)
