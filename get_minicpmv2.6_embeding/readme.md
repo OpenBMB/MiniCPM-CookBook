@@ -10,7 +10,7 @@ git clone https://github.com/OpenBMB/MiniCPM-CookBook
 
 #### 2. Replace the Original Model Code
 
-Next, replace the `modeling_minicpmv.py` file in your local `MiniCPMV2.6` project with the one from the downloaded project.
+Next, replace the `modeling_minicpmv.py` file in your local `MiniCPMV2.6` model path with the one from the downloaded project.
 
 ```sh
 cp MiniCPM-CookBook/get_minicpmv2.6_embeding/modeling_minicpmv.py /path/to/MiniCPMV2.6/modeling_minicpmv.py
