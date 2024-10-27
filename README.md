@@ -127,6 +127,7 @@
 - [LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory.git)：[MiniCPM微调一键式解决方案](https://modelbest.feishu.cn/wiki/AIU3wbREcirOm9kkvd7cxujFnMb#BAWrdSjXuoFvX4xuIuzc8Amln5E)
 - [ChatLLM框架](https://github.com/foldl/chatllm.cpp)：[在CPU上跑MiniCPM](https://huggingface.co/openbmb/MiniCPM-2B-dpo-bf16/discussions/2#65c59c4f27b8c11e43fc8796)
 - [datawhale_基于Linux环境快速部署开源大模型，更适合中国宝宝的部署教程](https://github.com/datawhalechina/self-llm)
+- [firefly_大模型训练部署工具](https://github.com/yangjianxin1/Firefly)
 
 ## 社区共建
 秉承开源精神，我们鼓励大家共建本仓库，包括但不限于添加新的MiniCPM教程、分享使用体验、提供生态适配、模型应用等。我们期待开发者们为我们的开源仓库作出贡献。
