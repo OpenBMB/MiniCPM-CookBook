@@ -1,0 +1,8 @@
+decord==0.6.0
+librosa==0.9.0
+moviepy==1.0.3
+numpy==2.3.0
+Pillow==11.2.1
+soundfile==0.12.1
+torch==2.5.1
+transformers==4.52.3

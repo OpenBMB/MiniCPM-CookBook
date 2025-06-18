@@ -18,7 +18,7 @@ from moviepy.editor import VideoFileClip
 import tempfile
 
 # 视频预处理
-def extract_frames_and_audio(video_path, sample_fps=5, max_frames=None, audio_processor=None):
+def extract_frames_and_audio(video_path, sample_fps=2, max_frames=None, audio_processor=None):
     """从视频文件中提取帧和对应的音频"""
     # 使用decord读取视频
     vr = VideoReader(video_path, ctx=cpu(0))
@@ -77,6 +77,8 @@ class LongVideoAudioProcessor:
                  memory_bank_size=32,      # 记忆库大小
                  overlap_frames=8,         # 块之间的重叠帧数
                  audio_sample_rate=16000,  # 音频采样率
+                 time_decay_factor=0.8,    # 时间衰减因子
+                 sample_fps=2,            # 视频采样频率
                  device="cuda" if torch.cuda.is_available() else "cpu"):
         
         # 加载模型
@@ -95,10 +97,15 @@ class LongVideoAudioProcessor:
         self.memory_bank_size = memory_bank_size
         self.overlap_frames = overlap_frames
         self.device = device
+        self.sample_fps = sample_fps  # 添加采样频率属性
         
-        # 初始化记忆库 - 现在包含视频帧和音频
+        # 初始化记忆库 - 现在包含视频帧、音频和时间戳
         self.visual_memory_bank = []
         self.audio_memory_bank = []
+        self.timestamps = []  # 存储每个帧的时间戳
+        self.text_summaries = []  # 存储历史文本摘要
+        
+        self.time_decay_factor = time_decay_factor
         
         # 初始化音频处理器
         self.audio_processor = AudioProcessor(sample_rate=audio_sample_rate)
@@ -116,29 +123,58 @@ class LongVideoAudioProcessor:
         
         return frame
     
-    def update_memory_bank(self, frames, audio_segments):
-        """更新记忆库 - 同时存储视频帧和音频"""
+    def update_memory_bank(self, frames, audio_segments, current_time):
+        """更新记忆库 - 同时存储视频帧、音频和时间戳"""
         # 将新的帧添加到视觉记忆库
         self.visual_memory_bank.extend(frames)
+        
+        # 更新时间戳
+        new_timestamps = [current_time + i/self.sample_fps for i in range(len(frames))]  # 使用类属性中的采样频率
+        self.timestamps.extend(new_timestamps)
         
         # 如果视觉记忆库超出大小限制，移除最旧的帧
         if len(self.visual_memory_bank) > self.memory_bank_size:
             self.visual_memory_bank = self.visual_memory_bank[-self.memory_bank_size:]
+            self.timestamps = self.timestamps[-self.memory_bank_size:]
         
         # 如果有音频，更新音频记忆库
         if audio_segments:
             self.audio_memory_bank.extend(audio_segments)
-            
-            # 如果音频记忆库超出大小限制，移除最旧的片段
             if len(self.audio_memory_bank) > self.memory_bank_size:
                 self.audio_memory_bank = self.audio_memory_bank[-self.memory_bank_size:]
+    
+    def calculate_time_weights(self, current_time):
+        """计算基于时间的衰减权重"""
+        weights = []
+        for timestamp in self.timestamps:
+            # 计算时间差（秒）
+            time_diff = current_time - timestamp
+            # 使用指数衰减函数计算权重
+            weight = self.time_decay_factor ** time_diff
+            weights.append(weight)
+        return np.array(weights)
+    
+    def weighted_sampling(self, frames, weights, sample_count):
+        """基于权重的采样"""
+        # 归一化权重
+        weights = weights / np.sum(weights)
+        # 使用权重进行采样
+        indices = np.random.choice(len(frames), size=sample_count, p=weights, replace=False)
+        return sorted(indices)  # 返回排序后的索引以保持时间顺序
+    
+    def update_text_summary(self, new_summary):
+        """更新历史文本摘要"""
+        self.text_summaries.append(new_summary)
+        # 保持摘要数量在合理范围内
+        if len(self.text_summaries) > 5:  # 最多保留5个摘要
+            self.text_summaries = self.text_summaries[-5:]
     
     def process_long_video(self, video_path, query):
         """处理长视频，包括音频"""
         # 提取视频帧和音频
         video_frames, audio_segments = extract_frames_and_audio(
             video_path, 
-            sample_fps=5, 
+            sample_fps=self.sample_fps,  # 使用类属性中的采样频率
             max_frames=None, 
             audio_processor=self.audio_processor
         )
@@ -167,71 +203,103 @@ class LongVideoAudioProcessor:
             audio_chunk = audio_chunks[i] if audio_segments else None
             
             # 使用记忆库和当前块进行推理
-            result = self._inference_with_memory(processed_frames, audio_chunk, query, i, len(chunks))
+            result = self._inference_with_memory(processed_frames, audio_chunk, query, i, len(chunks), datetime.now().timestamp())
             all_results.append(result)
             
             # 更新记忆库
-            self.update_memory_bank(processed_frames, audio_chunk)
+            self.update_memory_bank(processed_frames, audio_chunk, datetime.now().timestamp())
         
         # 合并所有块的结果
         final_result = self._merge_results(all_results, query)
         
         return final_result
     
-    def _inference_with_memory(self, frames, audio_segments, query, chunk_idx, total_chunks):
-        """使用记忆库和当前帧进行推理，包括音频"""
-        # 合并记忆库帧和当前帧，但需要控制总帧数
+    def _inference_with_memory(self, frames, audio_segments, query, chunk_idx, total_chunks, current_time):
+        """使用记忆库和当前帧进行推理，包括音频和时间加权"""
         combined_frames = []
         combined_audio = []
         
-        # 如果有视觉记忆库，添加部分记忆库帧
+        # 如果有视觉记忆库，使用时间加权采样
         if self.visual_memory_bank:
-            # 从记忆库中均匀采样一些帧
+            # 计算时间权重
+            time_weights = self.calculate_time_weights(current_time)
+            # 从记忆库中加权采样
             memory_sample_count = min(16, len(self.visual_memory_bank))
-            memory_indices = np.linspace(0, len(self.visual_memory_bank)-1, memory_sample_count, dtype=int)
+            memory_indices = self.weighted_sampling(self.visual_memory_bank, time_weights, memory_sample_count)
+            
             for idx in memory_indices:
                 combined_frames.append(self.visual_memory_bank[idx])
-                
-                # 如果有对应的音频记忆，也添加
                 if idx < len(self.audio_memory_bank):
                     combined_audio.append(self.audio_memory_bank[idx])
         
-        # 添加当前块的帧，也可能需要采样
+        # 添加当前块的帧
         current_sample_count = min(self.max_frames_per_chunk - len(combined_frames), len(frames))
         if current_sample_count < len(frames):
-            # 需要采样
             current_indices = np.linspace(0, len(frames)-1, current_sample_count, dtype=int)
             for idx in current_indices:
                 combined_frames.append(frames[idx])
-                
-                # 如果有对应的音频，也添加
                 if audio_segments and idx < len(audio_segments):
                     combined_audio.append(audio_segments[idx])
         else:
-            # 不需要采样，直接添加所有帧
             combined_frames.extend(frames)
-            
-            # 如果有音频，也添加所有音频片段
             if audio_segments:
                 combined_audio.extend(audio_segments)
         
-        # 构建带有视频帧和音频的消息
+        # 构建系统提示
+        system_prompt = """你是一个专业的视频理解助手，具有以下能力：
+1. 视觉分析：能够准确识别视频中的场景、物体、人物和动作
+2. 音频理解：能够识别背景音乐、对话、环境声音等
+3. 时序理解：能够理解视频中的时间顺序和事件发展
+4. 上下文关联：能够将当前内容与历史信息关联起来
+
+请遵循以下规则：
+1. 回答要简洁、准确、客观
+2. 优先描述视觉和音频的关键信息
+3. 保持时间顺序的连贯性
+4. 如果信息不足，明确说明
+5. 不要编造或推测不存在的信息"""
+
+        # 构建带有视频帧、音频和历史摘要的消息
         content = []
         
-        # 交替添加视频帧和音频，使用<unit>标记分隔
+        # 添加历史摘要，使用更结构化的格式
+        if self.text_summaries:
+            content.append("=== 历史上下文 ===")
+            for i, summary in enumerate(self.text_summaries):
+                content.append(f"[时间点 {i+1}] {summary}")
+            content.append("=== 当前内容 ===")
+        
+        # 添加当前时间信息
+        content.append(f"当前处理第 {chunk_idx + 1}/{total_chunks} 个视频块")
+        
+        # 交替添加视频帧和音频，使用更清晰的标记
         for i in range(len(combined_frames)):
-            content.append("<unit>")
+            content.append("<visual_audio_unit>")
+            content.append(f"[帧 {i+1}]")
             content.append(combined_frames[i])
             if i < len(combined_audio):
+                content.append(f"[音频 {i+1}]")
                 content.append(combined_audio[i])
         
-        # 添加查询
+        # 添加查询，使用更结构化的格式
+        content.append("\n=== 用户查询 ===")
         content.append(query)
+        content.append("\n请基于以上信息，按照以下格式回答：")
+        content.append("1. 视觉内容：[描述当前视频块中的主要视觉内容]")
+        content.append("2. 音频内容：[描述当前视频块中的主要音频内容]")
+        content.append("3. 上下文关联：[说明与历史内容的关联]")
+        content.append("4. 总结：[简要总结当前块的关键信息]")
         
-        video_msg = [{
-            "role": "user", 
-            "content": content
-        }]
+        video_msg = [
+            {
+                "role": "system",
+                "content": system_prompt
+            },
+            {
+                "role": "user", 
+                "content": content
+            }
+        ]
         
         # 设置视频处理参数
         params = {
@@ -247,8 +315,10 @@ class LongVideoAudioProcessor:
             **params
         )
         
-        # 构建结果
-        result = {
+        # 更新文本摘要
+        self.update_text_summary(response)
+        
+        return {
             "chunk_idx": chunk_idx,
             "total_chunks": total_chunks,
             "frames_count": len(frames),
@@ -258,33 +328,44 @@ class LongVideoAudioProcessor:
             "query": query,
             "response": response
         }
-        
-        return result
     
     def _merge_results(self, all_results, query):
         """合并所有块的结果"""
-        # 构建消息
-        msgs = []
-        
-        # 添加系统消息
-        msgs.append({
-            "role": "system",
-            "content": "你是一个视频理解助手，可以分析视频内容（包括视觉和音频）并回答问题。请基于所有视频块的分析结果，给出一个综合的回答。"
-        })
-        
+        # 构建系统提示
+        system_prompt = """你是一个专业的视频总结助手，负责整合多个视频块的分析结果。
+请遵循以下规则：
+1. 保持时间顺序的连贯性
+2. 突出重要事件和关键信息
+3. 确保信息的完整性和准确性
+4. 避免重复和冗余信息
+5. 如果信息有冲突，选择最可信的信息"""
+
         # 构建用户消息
         content = []
-        content.append("以下是各个视频块的分析结果（包含视觉和音频信息）:")
+        content.append("=== 视频块分析结果 ===")
         
         for i, result in enumerate(all_results):
-            content.append(f"块 {i+1}/{len(all_results)} 的分析结果: {result['response']}")
+            content.append(f"\n[视频块 {i+1}/{len(all_results)}]")
+            content.append(result['response'])
         
-        content.append(f"请基于以上所有块的分析结果，回答问题: {query}")
+        content.append("\n=== 用户查询 ===")
+        content.append(query)
+        content.append("\n请按照以下格式提供最终答案：")
+        content.append("1. 时间线：[按时间顺序总结主要事件]")
+        content.append("2. 关键信息：[提取最重要的信息点]")
+        content.append("3. 综合分析：[将各个块的信息整合分析]")
+        content.append("4. 直接回答：[针对用户查询的具体回答]")
         
-        msgs.append({
-            "role": "user",
-            "content": content
-        })
+        msgs = [
+            {
+                "role": "system",
+                "content": system_prompt
+            },
+            {
+                "role": "user",
+                "content": content
+            }
+        ]
         
         # 调用模型进行推理
         final_answer = self.model.chat(
@@ -352,7 +433,8 @@ def main():
         scale_resolution=448,
         memory_bank_size=32,
         overlap_frames=8,
-        audio_sample_rate=16000
+        audio_sample_rate=16000,
+        sample_fps=2  # 在这里统一设置采样频率
     )
     
     query = "视频中发生了什么事情？请详细描述视觉内容和音频内容。"
