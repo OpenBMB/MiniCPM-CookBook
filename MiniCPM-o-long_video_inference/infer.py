@@ -79,7 +79,9 @@ class LongVideoAudioProcessor:
                  audio_sample_rate=16000,  # 音频采样率
                  time_decay_factor=0.8,    # 时间衰减因子
                  sample_fps=2,            # 视频采样频率
-                 device="cuda" if torch.cuda.is_available() else "cpu"):
+                 device="cuda" if torch.cuda.is_available() else "cpu",
+                 high_res_mode=True        # 高清模式开关，默认开启
+                 ):
         
         # 加载模型
         self.model = AutoModel.from_pretrained(
@@ -97,23 +99,27 @@ class LongVideoAudioProcessor:
         self.memory_bank_size = memory_bank_size
         self.overlap_frames = overlap_frames
         self.device = device
-        self.sample_fps = sample_fps  # 添加采样频率属性
+        self.sample_fps = sample_fps
         
-        # 初始化记忆库 - 现在包含视频帧、音频和时间戳
+        # 初始化记忆库 - 包含视频帧、音频和时间戳
         self.visual_memory_bank = []
         self.audio_memory_bank = []
-        self.timestamps = []  # 存储每个帧的时间戳
-        self.text_summaries = []  # 存储历史文本摘要
+        self.timestamps = []  # 帧时间戳
+        self.text_summaries = []  # 历史文本摘要
         
         self.time_decay_factor = time_decay_factor
+        self.high_res_mode = high_res_mode  # 保存高清模式开关
         
         # 初始化音频处理器
         self.audio_processor = AudioProcessor(sample_rate=audio_sample_rate)
     
     def preprocess_frame(self, frame):
         """预处理单个视频帧"""
-        # 调整图像大小，保持宽高比
         width, height = frame.size
+        # 如果关闭高清模式，先缩小为原分辨率1/2
+        if not self.high_res_mode:
+            frame = frame.resize((width // 2, height // 2), Image.LANCZOS)
+            width, height = frame.size
         max_size = max(width, height)
         if max_size > self.scale_resolution:
             scale = self.scale_resolution / max_size
@@ -134,7 +140,7 @@ class LongVideoAudioProcessor:
         
         # 如果视觉记忆库超出大小限制，移除最旧的帧
         if len(self.visual_memory_bank) > self.memory_bank_size:
-            self.visual_memory_bank = self.visual_memory_bank[-self.memory_bank_size:]
+            self.visual_memory_bank = self.visual_memory_bank[-self.memory_bank_size:] 
             self.timestamps = self.timestamps[-self.memory_bank_size:]
         
         # 如果有音频，更新音频记忆库
@@ -423,7 +429,6 @@ class AudioProcessor:
     
 
 def main():
-
     video_path = "long_video.mp4" # 修改为您的视频路径
 
     processor = LongVideoAudioProcessor(
@@ -436,6 +441,7 @@ def main():
         audio_sample_rate=16000,  # 音频采样率
         time_decay_factor=0.8,    # 时间衰减因子
         sample_fps=2,             # 视频采样频率
+        high_res_mode=True        # 高清模式开关，默认开启
     )
     
     query = "视频中发生了什么事情？请详细描述视觉内容和音频内容。"
