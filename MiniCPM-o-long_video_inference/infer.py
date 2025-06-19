@@ -219,7 +219,7 @@ class LongVideoAudioProcessor:
         combined_frames = []
         combined_audio = []
         
-        # 如果有视觉记忆库，使用时间加权采样
+        # 使用时间加权采样
         if self.visual_memory_bank:
             # 计算时间权重
             time_weights = self.calculate_time_weights(current_time)
@@ -246,18 +246,18 @@ class LongVideoAudioProcessor:
                 combined_audio.extend(audio_segments)
         
         # 构建系统提示
-        system_prompt = """你是一个专业的视频理解助手，具有以下能力：
-1. 视觉分析：能够准确识别视频中的场景、物体、人物和动作
-2. 音频理解：能够识别背景音乐、对话、环境声音等
-3. 时序理解：能够理解视频中的时间顺序和事件发展
-4. 上下文关联：能够将当前内容与历史信息关联起来
-
-请遵循以下规则：
-1. 回答要简洁、准确、客观
-2. 优先描述视觉和音频的关键信息
-3. 保持时间顺序的连贯性
-4. 如果信息不足，明确说明
-5. 不要编造或推测不存在的信息"""
+        system_prompt = """
+        你是一个专业的视频理解助手，具有以下能力：
+        1. 视觉分析：能够准确识别视频中的场景、物体、人物和动作
+        2. 音频理解：能够识别背景音乐、对话、环境声音等
+        3. 时序理解：能够理解视频中的时间顺序和事件发展
+        4. 上下文关联：能够将当前内容与历史信息关联起来
+        5. 回答要简洁、准确、客观
+        6. 优先描述视觉和音频的关键信息
+        7. 保持时间顺序的连贯性
+        8. 如果信息不足，明确说明
+        9. 不要编造或推测不存在的信息
+        """
 
         # 构建带有视频帧、音频和历史摘要的消息
         content = []
@@ -332,15 +332,16 @@ class LongVideoAudioProcessor:
     def _merge_results(self, all_results, query):
         """合并所有块的结果"""
         # 构建系统提示
-        system_prompt = """你是一个专业的视频总结助手，负责整合多个视频块的分析结果。
-请遵循以下规则：
-1. 保持时间顺序的连贯性
-2. 突出重要事件和关键信息
-3. 确保信息的完整性和准确性
-4. 避免重复和冗余信息
-5. 如果信息有冲突，选择最可信的信息"""
+        system_prompt = """
+        你是一个专业的视频总结助手，负责整合多个视频块的分析结果。
+        请遵循以下规则：
+        1. 保持时间顺序的连贯性
+        2. 突出重要事件和关键信息
+        3. 确保信息的完整性和准确性
+        4. 避免重复和冗余信息
+        5. 如果信息有冲突，选择最可信的信息
+        """
 
-        # 构建用户消息
         content = []
         content.append("=== 视频块分析结果 ===")
         
@@ -427,14 +428,14 @@ def main():
     video_path = "long_video.mp4" # 修改为您的视频路径
 
     processor = LongVideoAudioProcessor(
-        model_path="openbmb/MiniCPM-o-2_6",  # 修改为您的模型路径
-        max_frames_per_chunk=64,
-        max_slice_nums=9,
-        scale_resolution=448,
-        memory_bank_size=32,
-        overlap_frames=8,
-        audio_sample_rate=16000,
-        sample_fps=2  # 在这里统一设置采样频率
+        max_frames_per_chunk=64,  # 每个块的最大帧数
+        max_slice_nums=9,         # 每帧图像的最大切片数
+        scale_resolution=448,     # 每个切片的分辨率
+        memory_bank_size=32,      # 记忆库大小
+        overlap_frames=8,         # 块之间的重叠帧数
+        audio_sample_rate=16000,  # 音频采样率
+        time_decay_factor=0.8,    # 时间衰减因子
+        sample_fps=2,             # 视频采样频率
     )
     
     query = "视频中发生了什么事情？请详细描述视觉内容和音频内容。"
