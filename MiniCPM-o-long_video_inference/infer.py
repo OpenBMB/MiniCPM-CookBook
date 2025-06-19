@@ -339,8 +339,7 @@ class LongVideoAudioProcessor:
         2. 突出重要事件和关键信息
         3. 确保信息的完整性和准确性
         4. 避免重复和冗余信息
-        5. 如果信息有冲突，选择最可信的信息
-        """
+        5. 如果信息有冲突，选择最可信的信息"""
 
         content = []
         content.append("=== 视频块分析结果 ===")
@@ -428,6 +427,7 @@ def main():
     video_path = "long_video.mp4" # 修改为您的视频路径
 
     processor = LongVideoAudioProcessor(
+        model_path="openbmb/MiniCPM-o-2_6", # 修改为您的模型路径
         max_frames_per_chunk=64,  # 每个块的最大帧数
         max_slice_nums=9,         # 每帧图像的最大切片数
         scale_resolution=448,     # 每个切片的分辨率
