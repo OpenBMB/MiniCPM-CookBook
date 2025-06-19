@@ -11,6 +11,7 @@ from PIL import Image
 from decord import VideoReader, cpu
 from transformers import AutoModel, AutoTokenizer
 from moviepy.editor import VideoFileClip
+from tqdm import tqdm
 
 import librosa
 import soundfile as sf
@@ -201,7 +202,7 @@ class LongVideoAudioProcessor:
         
         # 逐块处理视频
         all_results = []
-        for i, chunk in enumerate(chunks):
+        for i, chunk in enumerate(tqdm(chunks, desc="Processing chunks", unit="chunks", ncols=80)):
             # 预处理当前块的帧
             processed_frames = [self.preprocess_frame(frame) for frame in chunk]
             
